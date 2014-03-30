@@ -1,32 +1,35 @@
-SQL
+Heroku App: 
+    http://ancient-sea-2426.herokuapp.com/
 
+
+SQL
 
 1. SELECT DISTINCT status from dbo.tasks order by status
 
 2. SELECT project_id, COUNT(*) as task_count from dbo.tasks group by project_id order by desc
 
 3. SELECT pr.name, COUNT(*) as task_count from dbo.tasks tsk
-    join dbo.projects pr on pr.id = tsk.project_id
-    group by pr.name order by pr.name
+join dbo.projects pr on pr.id = tsk.project_id
+group by pr.name order by pr.name
 4. SELECT * from dbo.tasks where name like 'N%'
 
 5. SELECT pr.name, COUNT(tsk.name)
-    FROM dbo.tasks tsk
-    RIGHT JOIN dbo.projects pr ON tsk.project_id = pr.id
-    WHERE pr.name LIKE '%a%'
-    GROUP BY pr.name
+FROM dbo.tasks tsk
+RIGHT JOIN dbo.projects pr ON tsk.project_id = pr.id
+WHERE pr.name LIKE '%a%'
+GROUP BY pr.name
 
 6. SELECT COUNT(*), name from dbo.tasks group by name HAVING COUNT(*) > 1 ORDER BY name
 
 7. SELECT tsk.name
-    FROM dbo.tasks tsk
-    JOIN dbo.projects pr ON tsk.project_id = pr.id
-    WHERE pr.name = 'Garage'
-    GROUP BY tsk.name, tsk.status HAVING COUNT(*) > 1
-    ORDER BY COUNT(*)
+FROM dbo.tasks tsk
+JOIN dbo.projects pr ON tsk.project_id = pr.id
+WHERE pr.name = 'Garage'
+GROUP BY tsk.name, tsk.status HAVING COUNT(*) > 1
+ORDER BY COUNT(*)
 
 8. SELECT pr.name FROM dbo.projects pr
-    JOIN  dbo.tasks tsk ON tsk.project_id = pr.id
-    WHERE tsk.status = 'completed'
-    GROUP BY pr.name, pr.id HAVING COUNT(tsk.id) > 10
-    ORDER BY pr.id
+JOIN  dbo.tasks tsk ON tsk.project_id = pr.id
+WHERE tsk.status = 'completed'
+GROUP BY pr.name, pr.id HAVING COUNT(tsk.id) > 10
+ORDER BY pr.id
