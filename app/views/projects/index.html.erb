@@ -1,0 +1,55 @@
+<div id="projects-wrap" class="center">
+  <div class="page-header">
+    <h1 class="text-center">Listing projects</h1>
+  </div>
+  <% @projects.each do |project| %>
+    <div class="panel panel-info">
+      <div class="panel-heading" >
+        <div class="panel-title">
+          <%= project.name %>
+          <div class="float-right">
+            <%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_project_path(project) %>
+            <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, project, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body light-blue-background padding-margin-nil">
+          <%= form_for [project, project.tasks.build] do |f| %>        
+        <div class="input-group">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-plus green"></span>
+          </span>
+          <%= f.text_field :name, placeholder: 'Please enter your task here', :class => "form-control" %>          
+          <span class="input-group-btn light-blue-background">
+            <%= f.submit 'Add Task', :class => "btn btn-info" %>
+          </span>
+        </div>
+          <% end %>        
+        <table class="table table-hover padding-margin-nil" id="table-tasks">
+          <tbody>
+            <%- project.tasks.sort_by(&:priority).each do |task| %>
+              <% unless task.name.nil? %>
+                <tr>
+                  <td class="width5">
+                    <input class="completed-checkbox" data-id="<%= task.id %>" type="checkbox" autocomplete="off" <%= 'checked' if task.completed? %> >
+                  </td>
+                  <td><%= task.name %></td>
+                  <td class="width10" id="task-edit">                
+                    <%= link_to '<span class="glyphicon glyphicon-arrow-up"></span>'.html_safe, increase_priority_project_task_path(project, task), method: :post %>         
+                    <%= link_to '<span class="glyphicon glyphicon-arrow-down"></span>'.html_safe, decrease_priority_project_task_path(project, task), method: :post %>
+                    <%= link_to '<span class="glyphicon glyphicon-pencil"></span>'.html_safe, edit_project_task_path(project, task) %>
+                    <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, [project, task], method: :delete, data: { confirm: 'Are you sure?' },
+                                                                                                                  remote: true, :class => "link_to_delete_task" %>
+                  </td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>          
+      </div>
+    </div>
+  <% end %>
+  <div class="text-center">
+    <%= link_to 'Create Project', new_project_path, :class => "btn btn-link" %>
+  </div>
+</div>
