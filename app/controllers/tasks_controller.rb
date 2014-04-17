@@ -1,18 +1,19 @@
 class TasksController < ApplicationController
   before_filter :set_project, except: :change
   before_filter :set_task, only: [:edit, :update, :increase_priority, :decrease_priority]
+  before_filter :authenticate_user!  
 
 
   def create
     @task = @project.tasks.build(task_params)
     flash[:alert] = @task.errors.full_messages unless @task.save
-    redirect_to root_path    
+    redirect_to root_path
   end
 
   def edit
   end
 
-  #changes task naem
+  #changes task name
   def update 
     if @task.update(task_params)
       redirect_to projects_path
@@ -47,7 +48,7 @@ class TasksController < ApplicationController
 
 private
   def set_project
-    @project = Project.find(params[:project_id])
+    @project = current_user.projects.find(params[:project_id])
   end
 
   def set_task

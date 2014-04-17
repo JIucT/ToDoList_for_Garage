@@ -2,9 +2,19 @@ div.navbar {
   border-radius: 0px !important;
 }
 
+html {
+  min-height: 100% !important;
+  background-repeat: no-repeat !important;
+  background: -webkit-linear-gradient(#D4D4D4, #F2C305); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#D4D4D4, #F2C305); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#D4D4D4, #F2C305); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#D4D4D4, #F2C305); /* Standard syntax */
+}
+
 body {
   margin: 0px 10% 0px 10% !important;
   padding-bottom: 70px !important;  
+  background-color: transparent !important;
 }  
 
 #created_for {
